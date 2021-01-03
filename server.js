@@ -1,11 +1,16 @@
 const express = require("express");
+const status = require("http-status");
+const appMiddleware = require("./config/loader");
+
+const { port } = require("./config");
 
 const app = express();
+appMiddleware(app);
 
-app.listen(5000, () => {
-  console.log("App listening on port 5000!");
+app.listen(port, () => {
+  console.log(`App listening on port ${port} !`);
 });
 
 app.get("/", (req, res) => {
-  res.send("app work");
+  res.json({ msg: "app work", status: status.OK });
 });
